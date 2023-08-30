@@ -22,17 +22,17 @@
   roles:
     - base
 
-- hosts: workstation
-  tags: workstation
+- hosts: desktop
+  tags: desktop
   become: true
   roles:
-    - workstation
+    - desktop
 
-- hosts: server
-  tags: server
+- hosts: laptop
+  tags: laptop
   become: true
   roles:
-    - server
+    - laptop
 
 # end of run cleanup and reporting
 - hosts: all
@@ -43,14 +43,14 @@
     apt:
       autoclean: yes
     changed_when: false
-    when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
+    when: ansible_distribution in ["Debian", "Ubuntu"]
 
   - name: autoremove orphan packages (debian and ubuntu)
     tags: always
     apt:
       autoremove: yes
       purge: yes
-    when: ansible_distribution in ["Debian", "Pop!_OS", "Ubuntu"]
+    when: ansible_distribution in ["Debian", "Ubuntu"]
 
   - name: send completion alert
     include_tasks: playbooks/send_completion_alert.yml
