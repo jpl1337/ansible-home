@@ -112,11 +112,14 @@
       - ghidra
       - firefox
       - slack
-      - code
       - brave
       - signal-desktop
-    options:
-    - code:classic=true
+
+- name Install code in classic mode
+  become: true
+  community.general.snap:
+      - code
+    classic: true
       
 
 - name: Add the flathub flatpak repository remote to the user installation
