@@ -7,10 +7,8 @@
       - curl
       - flatpak
       - dconf-cli
-      - brave-browser
       - clamav
       - libreoffice
-      - signal-desktop
       - steam
       - tcpdump
       - unrar
@@ -40,13 +38,13 @@
     value: "/home/radio/Pictures/cat-ninja.jpg"
 
 
-- name: "Install official Signal public software signing key"
+- name: Install official Signal public software signing key
   become: True
   shell: |
     wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
     cat signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
 
-- name: "Add the official signal-desktop repo"
+- name: Add the official signal-desktop repo
   become: True
   apt_repository:
     repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main"
@@ -54,12 +52,12 @@
     update_cache: yes
     filename: signal
 
-- name: "Install official Brave public software signing key"
+- name: Install official Brave public software signing key
   become: True
   shell: |
     curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 
-- name: "Add the official Brave repo"
+- name: Add the official Brave repo
   become: True
   apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
@@ -67,6 +65,15 @@
     update_cache: yes
     filename: brave-browser
 
+- name: System setup | install signal and brave
+  tags: packages
+  become: True
+  package:
+    name:
+      - snap
+      - signal-desktop
+      - brave-browser
+    state: latest
 
 - name: Install snap packages
   become: True
