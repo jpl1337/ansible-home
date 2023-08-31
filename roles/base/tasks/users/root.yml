@@ -1,11 +1,11 @@
 - name: users | root | copy dotfiles
   copy:
-    src: users/root/{{ item.src }}
+    src: files/{{ item.src }}
     dest: /root/{{ item.dest}}
     owner: root
     group: root
     mode: 0600
   with_items:
-      - { src: 'files/bash_aliases', dest: '.bash_aliases' }
-      - { src: 'files/zshrc', dest: '.zshrc' }
+      - { src: 'bash_aliases', dest: '.bash_aliases' }
+      - { src: 'zshrc', dest: '.zshrc' }
   tags: dotfiles
