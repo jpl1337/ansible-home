@@ -115,8 +115,8 @@
       - code
       - brave
       - signal-desktop
-      options:
-        - code:classic=True
+    options:
+    - code:classic=True
       
 
 - name: Add the flathub flatpak repository remote to the user installation
