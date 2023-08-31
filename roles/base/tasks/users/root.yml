@@ -1,20 +1,3 @@
-- name: users | root | ensure account is locked
-  user:
-    name: root
-    password_lock: yes
-
-- name: users | root | create config directories
-  file:
-    path: /root/{{ item.dir }}
-    state: directory
-    owner: root
-    group: root
-    mode: 0700
-  with_items:
-      - { dir: '.vim' }
-      - { dir: '.vim/colors' }
-  tags: dotfiles
-
 - name: users | root | copy dotfiles
   copy:
     src: users/root/{{ item.src }}
@@ -23,7 +6,6 @@
     group: root
     mode: 0600
   with_items:
-      - { src: 'files/bashrc', dest: '.bashrc' }
       - { src: 'files/bash_aliases', dest: '.bash_aliases' }
       - { src: 'files/zshrc', dest: '.zshrc' }
   tags: dotfiles
