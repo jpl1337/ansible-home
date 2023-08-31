@@ -42,7 +42,7 @@
   become: True
   community.general.dconf:
     key: /org/mate/desktop/background/picture-options 
-    value: "'center'"
+    value: "'centered'"
 
 - name: Set desktop-background color | Radio
   become_user: radio
