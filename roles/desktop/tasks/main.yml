@@ -1,0 +1,28 @@
+---
+  pre_tasks:
+    -name: "install requirements"
+      become: yes
+      tags: chat,requirements,packages
+      package:
+        name:
+          - snap
+        state: latest
+
+
+- name: "Install official Signal public software signing key"
+  become: yes
+  shell: |
+    wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
+    cat signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+- name: "The official signal-desktop repo"
+  become: yes
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main"
+    state: present
+    update_cache: yes
+    filename: signal
+- name: "Install Signal-desktop"
+  become: yes
+  apt:
+    name: "signal-desktop"
+    state: latest

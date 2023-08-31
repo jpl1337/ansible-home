@@ -1,0 +1,102 @@
+---
+  pre_tasks:
+    -name: "install requirements"
+      become: yes
+      tags: chat,requirements,packages
+      package:
+        name:
+          - snap
+          - curl
+          - flatpak
+          - dconf-cli
+        state: latest
+
+name: Copy wallpapers | Radio
+  tags: wallpaper,users,radio
+  copy:
+    src: users/radio/{{ item.src }}
+    dest: /home/radio/{{ item.dest }}
+    owner: radio
+    group: radio
+    mode: 0600
+  with_items:
+    - { src: 'files/cat-ninja.jpg', dest: 'Pictures/cat-ninja.jpg' }
+
+- name: Set desktop-background | Radio
+  become_user: radio
+  become: yes
+  community.general.dconf:
+    key: /org/mate/desktop/background/picture-filename
+    value: "/home/radio/Pictures/cat-ninja.jpg"
+
+
+- name: "Install official Signal public software signing key"
+  become: yes
+  shell: |
+    wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
+    cat signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+
+- name: "Add the official signal-desktop repo"
+  become: yes
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main"
+    state: present
+    update_cache: yes
+    filename: signal
+
+- name: "Install official Brave public software signing key"
+  become: yes
+  shell: |
+    curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+- name: "Add the official Brave repo"
+  become: yes
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
+    state: present
+    update_cache: yes
+    filename: signal
+
+
+- name: System setup | install packages
+  tags: packages
+  become: yes
+  package:
+    state: latest
+    name:
+      - brave-browser
+      - clamav
+      - libreoffice
+      - signal-desktop
+      - steam
+      - tcpdump
+      - unrar
+      - qbittorrent
+      - virt-manager
+      - vlc
+      - wireshark-qt
+      - xxd
+
+- name: Install snap packages
+  community.general.snap:
+  become: yes
+    name:
+      - armcord
+      - ghidra
+      - firefox
+      - slack
+
+- name: Add the flathub flatpak repository remote to the user installation
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+# might need a restart here for flathub to work
+
+- name: Install flatpak packages
+  community.general.flatpak:
+    name:
+      - com.plexamp.Plexamp
+

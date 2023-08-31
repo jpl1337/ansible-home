@@ -1,7 +1,8 @@
-- name: system setup | pip packages | install bpytop
-  tags: bpytop,packages,pip,python
-  become_user: jay
+- name: system setup | install pip packages  
+  tags: packages,pip,python
+  become_user: radio
   pip:
     executable: /usr/bin/pip3
     state: latest
-    name: bpytop
+    name: 
+      - bpytop

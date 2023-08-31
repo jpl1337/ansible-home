@@ -1,0 +1,36 @@
+- name: dev environment setup | development packages | install packages
+  tags: dev,development,packages,python
+  package:
+    name:
+      - flake8
+      - black
+      - jq
+      - git
+      - "{{ python_flake8_package }}"
+      - "{{ python_package }}"
+      - "{{ python_pip_package }}"
+      - "{{ python_pyflakes_package }}"
+      - python-setuptools
+      - "{{ python_virtualenv_package }}"
+      - whois
+      - curl
+
+    state: latest
+
+- name: dev environment setup | install pip packages  
+  tags: packages,pip,python
+  become_user: radio
+  pip:
+    executable: /usr/bin/pip3
+    state: latest
+    name: 
+      - poetry
+
+- name: dev environment setup | scripts | copy generate-git-key.sh script
+  tags: scripts
+  become_user: radio
+  copy:
+    src: files/generate-git-key.sh
+    dest: /home/radio/generate-git-key.sh
+    owner: radio
+    mode: 0755
