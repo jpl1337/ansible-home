@@ -118,6 +118,7 @@
 - name: Install code in classic mode
   become: true
   community.general.snap:
+    name:
       - code
     classic: true
       
