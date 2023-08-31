@@ -115,7 +115,7 @@
       - brave
       - signal-desktop
 
-- name Install code in classic mode
+- name: Install code in classic mode
   become: true
   community.general.snap:
       - code
