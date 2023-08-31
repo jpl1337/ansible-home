@@ -1,6 +1,6 @@
 - name: install requirements
   become: True
-  tags: chat,requirements,packages
+  tags: requirements,packages
   package:
     name:
       - snap
@@ -11,7 +11,6 @@
   shell: |
     wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg
     cat signal-desktop-keyring.gpg | sudo tee -a /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
-
 - name: "The official signal-desktop repo"
   become: True
   apt_repository:
