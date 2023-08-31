@@ -22,13 +22,13 @@
 - name: Copy wallpapers | Radio
   tags: wallpaper,users,radio
   copy:
-    src: users/radio/{{ item.src }}
+    src: files/{{ item.src }}
     dest: /home/radio/{{ item.dest }}
     owner: radio
     group: radio
     mode: 0600
   with_items:
-    - { src: 'files/cat-ninja.jpg', dest: 'Pictures/cat-ninja.jpg' }
+    - { src: 'cat-ninja.jpg', dest: 'Pictures/cat-ninja.jpg' }
 
 - name: Set desktop-background | Radio
   become_user: radio

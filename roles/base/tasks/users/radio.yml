@@ -1,11 +1,11 @@
 - name: users | radio | copy dotfiles
   tags: dotfiles,users,radio,tmux,users,vim,zsh
   copy:
-    src: users/radio/{{ item.src }}
+    src: files/{{ item.src }}
     dest: /home/radio/{{ item.dest }}
     owner: radio
     group: radio
     mode: 0600
   with_items:
-    - { src: 'files/bash_aliases', dest: '.bash_aliases' }
-    - { src: 'files/zshrc', dest: '.zshrc' }
+    - { src: 'bash_aliases', dest: '.bash_aliases' }
+    - { src: 'zshrc', dest: '.zshrc' }

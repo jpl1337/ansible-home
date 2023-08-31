@@ -20,7 +20,7 @@
       - rsync
       - tmux
       - traceroute
-      - "{{ vim_package }}"
+      - neovim
       - zip
       - zsh
 
