@@ -9,3 +9,4 @@ sudo apt install git ansible -y
 printf "\nRunning ansible-home playbook...\n\n"
 ansible-pull -U https://github.com/jpl1337/ansible-home.git
 printf "\nDone running ansible-home playbook...\n\nBYE!!\n"
+neofetch
