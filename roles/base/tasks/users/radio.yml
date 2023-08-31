@@ -1,6 +1,6 @@
 - name: users | radio | copy dotfiles
-  tags: dotfiles,users,radio,tmux,users,vim,zsh
-  copy:
+  tags: dotfiles,users,radio,zsh
+  ansible.builtin.copy:
     src: files/{{ item.src }}
     dest: /home/radio/{{ item.dest }}
     owner: radio
@@ -9,3 +9,13 @@
   with_items:
     - { src: 'bash_aliases', dest: '.bash_aliases' }
     - { src: 'zshrc', dest: '.zshrc' }
+
+- name: Add .bash_aliases to .bashrc
+  tags: dotfiles,users,radio, bash
+  ansible.builtin.blockinfile:
+    path: /home/radio/.bashrc
+    insertafter:
+    block: |
+      if [ -f ~/.bash_aliases ]; then
+        . ~/.bash_aliases
+      fi
