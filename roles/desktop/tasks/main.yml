@@ -4,7 +4,7 @@
   package:
     name:
       - snap
-  state: latest
+    state: latest
   
 - name: "Install official Signal public software signing key"
   become: True
@@ -15,7 +15,7 @@
   become: True
   apt_repository:
     repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main"
-  state: present
+    state: present
   update_cache: yes
   filename: signal
 
@@ -23,4 +23,4 @@
   become: True
   apt:
     name: "signal-desktop"
-  state: latest
+    state: latest
