@@ -7,4 +7,4 @@ sudo apt update
 printf "\nInstalling ansible...\n\n"
 sudo apt install git ansible -y 
 printf "\nRunning ansible-home playbook...\n\n"
-# ansible-pull -U https://github.com/jpl1337/ansible-home.git
+ansible-pull -U https://github.com/jpl1337/ansible-home.git
