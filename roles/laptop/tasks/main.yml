@@ -37,6 +37,26 @@
     key: /org/mate/desktop/background/picture-filename
     value: "'/home/radio/Pictures/cat-ninja.jpg'"
 
+- name: Set desktop-background option | Radio
+  become_user: radio
+  become: True
+  community.general.dconf:
+    key: /org/mate/desktop/background/picture-options 
+    value: "'center'"
+
+- name: Set desktop-background color | Radio
+  become_user: radio
+  become: True
+  community.general.dconf:
+    key: /org/mate/desktop/background/primary-color
+    value: "'rgb(0,0,0)'"
+
+- name: Set desktop-background shading | Radio
+  become_user: radio
+  become: True
+  community.general.dconf:
+    key: /org/mate/desktop/background/color-shading-type
+    value: "'solid'"
 
 - name: Install official Signal public software signing key
   become: True
