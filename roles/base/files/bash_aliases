@@ -40,7 +40,7 @@ alias vup='vagrant up'
 alias watch='watch -d'
 alias weather='curl wttr.in'
 alias wget='wget -c'
-alis x="exit"
+alias x="exit"
 
 ## get top process eating memory
 alias mem5='ps auxf | sort -nr -k 4 | head -5'
