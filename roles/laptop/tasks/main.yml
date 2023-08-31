@@ -35,7 +35,7 @@
   become: True
   community.general.dconf:
     key: /org/mate/desktop/background/picture-filename
-    value: "/home/radio/Pictures/cat-ninja.jpg"
+    value: "'/home/radio/Pictures/cat-ninja.jpg'"
 
 
 - name: Install official Signal public software signing key
