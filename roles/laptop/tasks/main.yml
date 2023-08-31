@@ -84,6 +84,25 @@
     state: present
     update_cache: yes
     filename: brave-browser
+    
+- name: Install official VSCode public software signing key
+  become: True
+  shell: |
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+    install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+
+- name: Add the official VSCode repo
+  become: True
+  apt_repository:
+    repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
+    state: present
+    update_cache: yes
+    filename: signal
+
+- name: Remove local microsoft key file
+  ansible.builtin.file:
+    path: packages.microsoft.gpg
+    state: absent
 
 - name: System setup | install signal and brave
   tags: packages
@@ -93,6 +112,7 @@
       - snap
       - signal-desktop
       - brave-browser
+      - code
     state: latest
 
 - name: Install snap packages
