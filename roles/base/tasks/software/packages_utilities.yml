@@ -15,6 +15,7 @@
       - net-tools
       - "{{ nfs_client_package }}"
       - nmap
+      - pip3
       - ranger
       - "{{ rename_package }}"
       - rsync
