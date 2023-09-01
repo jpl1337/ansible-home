@@ -3,16 +3,18 @@
   become: True
   package:
     name:
-      - snap
-      - curl
-      - flatpak
-      - dconf-cli
+      - alacritty
       - clamav
+      - curl
+      - dconf-cli
+      - flatpak
+      - gammastep
       - libreoffice
+      - qbittorrent
+      - snap
       - steam
       - tcpdump
       - unrar
-      - qbittorrent
       - virt-manager
       - vlc
       - wireshark-qt
@@ -104,6 +106,7 @@
 #     path: packages.microsoft.gpg
 #     state: absent
 
+# These snap installs can be swapped for flatpaks below
 - name: Install snap packages
   become: True
   community.general.snap:
@@ -136,4 +139,11 @@
   community.general.flatpak:
     name:
       - com.plexamp.Plexamp
-
+      # I want to try switching to flatpaks vs snaps:
+      # Enable the lines below and disable the Install snap packages above
+      # - armcord
+      # - ghidra
+      # - firefox
+      # - slack
+      # - brave
+      # - signal-desktop
