@@ -32,6 +32,7 @@ alias revpn='sudo systemctl restart openvpn'
 alias sproxy='ssh -p 2099 -D 9090 -q -C -N -f jay@vpn.home-network.io'
 alias ssha='eval $(ssh-agent) && ssh-add'
 alias status='systemctl status'
+alias step='gammastep -PO'
 alias sure="sudo !!"
 alias svim='sudo vim'
 alias tn=' tmux new -s'
