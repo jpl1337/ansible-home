@@ -139,6 +139,7 @@
   community.general.flatpak:
     name:
       - com.plexamp.Plexamp
+      - us.zoom.Zoom
       # I want to try switching to flatpaks vs snaps:
       # Enable the lines below and disable the Install snap packages above
       # - armcord
